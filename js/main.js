@@ -39,7 +39,7 @@ const pageContainer = getPageContainer()
 
 export const router = new Navigo('/');
 
-router.on('/',   async () => {
+router.on('/main',   async () => {
     pageContainer.innerHTML = ''
     const { getMainPage } = await import('./pages/mainPage.js')
     const mainPage = getMainPage()

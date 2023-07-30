@@ -1,4 +1,4 @@
-import { router} from '../main.js';
+import { router } from '../main.js';
 
 export function getHeader() {
     const header = document.createElement('header')
@@ -27,7 +27,7 @@ export function getHeader() {
     link2.addEventListener('click', (event) => {
         event.preventDefault()
 
-        
+
         router.navigate('/cart')
     })
 
@@ -39,7 +39,7 @@ export function getHeader() {
     link3.addEventListener('click', (event) => {
         event.preventDefault()
 
-        
+
         router.navigate('/catalog')
     })
 
