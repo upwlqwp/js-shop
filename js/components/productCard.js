@@ -5,7 +5,13 @@ export function getProductCard(title, price) {
 
     const productTitle = document.createElement('h2')
     productTitle.classList.add('product-list__title')
-    productTitle.textContent = title
+
+
+    let productLink = document.createElement('a')
+    productLink.textContent = title
+    productLink.href = '/product'
+
+    productTitle.append(productLink)
 
     const productPrice = document.createElement('strong')
     productPrice.classList.add('product-list__price')

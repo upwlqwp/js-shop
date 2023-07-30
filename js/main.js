@@ -1,7 +1,10 @@
+import  Navigo  from 'navigo'
+
 import { getHeader } from './components/header.js'
 import { getPageContainer } from './components/pageContainer.js'
 import { getMainTitle } from './components/mainTitle.js';
 import { getDescription } from './components/desc.js';
+import { getProductPage } from './pages/productPage.js';
 
 
 
@@ -59,6 +62,13 @@ router.on('/cart',  async () => {
     const { getCartPage } = await import('./pages/cartPage.js')
     const cartPage = getCartPage() // {getCatalogPage} after ()
     pageContainer.append(cartPage)
+})
+
+router.on('/product',  async () => {
+    pageContainer.innerHTML = ''
+    const { product } = await import('./pages/productPage.js')
+    const productPage = getProductPage() // {getCatalogPage} after ()
+    pageContainer.append(productPage)
 })
 
 router.resolve()
