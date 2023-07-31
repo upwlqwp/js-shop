@@ -60,14 +60,14 @@ router.on('/catalog',  async () => {
 router.on('/cart',  async () => {
     pageContainer.innerHTML = ''
     const { getCartPage } = await import('./pages/cartPage.js')
-    const cartPage = getCartPage() // {getCatalogPage} after ()
+    const cartPage = getCartPage() 
     pageContainer.append(cartPage)
 })
 
-router.on('/product',  async () => {
+router.on('/product/:title',  async ({data}) => {
     pageContainer.innerHTML = ''
-    const { product } = await import('./pages/productPage.js')
-    const productPage = getProductPage() // {getCatalogPage} after ()
+    const { getProductPage } = await import('./pages/productPage.js')
+    const productPage = getProductPage(data.title) 
     pageContainer.append(productPage)
 })
 

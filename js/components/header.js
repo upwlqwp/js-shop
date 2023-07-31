@@ -1,4 +1,4 @@
-import { router } from '../main.js';
+import { router } from '../main';
 
 export function getHeader() {
     const header = document.createElement('header')
@@ -13,7 +13,7 @@ export function getHeader() {
     let link1 = document.createElement('a')
     link1.href = ''
     link1.classList.add('btn')
-    link1.textContent = 'Main page'
+    link1.textContent = 'Main'
     link1.addEventListener('click', (event) => {
         event.preventDefault()
 

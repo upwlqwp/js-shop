@@ -594,6 +594,7 @@ function getMainPage() {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getProductCard", ()=>getProductCard);
+var _main = require("../main");
 function getProductCard(title, price) {
     const item = document.createElement("li");
     item.classList.add("product-list__item");
@@ -601,7 +602,11 @@ function getProductCard(title, price) {
     productTitle.classList.add("product-list__title");
     let productLink = document.createElement("a");
     productLink.textContent = title;
-    productLink.href = "/product";
+    productLink.href = "";
+    productLink.addEventListener("click", (event)=>{
+        event.preventDefault();
+        (0, _main.router).navigate(`/product/${title}`);
+    });
     productTitle.append(productLink);
     const productPrice = document.createElement("strong");
     productPrice.classList.add("product-list__price");
@@ -613,6 +618,6 @@ function getProductCard(title, price) {
     return item;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["1rhHI"], null, "parcelRequire8cd9")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../main":"bDbGG"}]},["1rhHI"], null, "parcelRequire8cd9")
 
 //# sourceMappingURL=mainPage.a5fbfebe.js.map

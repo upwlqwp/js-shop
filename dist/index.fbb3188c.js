@@ -603,15 +603,13 @@ router.on("/catalog", async ()=>{
 router.on("/cart", async ()=>{
     pageContainer.innerHTML = "";
     const { getCartPage } = await require("7abdfe791d838f0");
-    const cartPage = getCartPage() // {getCatalogPage} after ()
-    ;
+    const cartPage = getCartPage();
     pageContainer.append(cartPage);
 });
-router.on("/product", async ()=>{
+router.on("/product/:title", async ({ data })=>{
     pageContainer.innerHTML = "";
-    const { product } = await require("c930c9ec97d9a87d");
-    const productPage = (0, _productPageJs.getProductPage)() // {getCatalogPage} after ()
-    ;
+    const { getProductPage } = await require("c930c9ec97d9a87d");
+    const productPage = getProductPage(data.title);
     pageContainer.append(productPage);
 });
 router.resolve();
@@ -621,7 +619,7 @@ app.append(header, pageContainer);
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getHeader", ()=>getHeader);
-var _mainJs = require("../main.js");
+var _main = require("../main");
 function getHeader() {
     const header = document.createElement("header");
     header.classList.add("header");
@@ -632,10 +630,10 @@ function getHeader() {
     let link1 = document.createElement("a");
     link1.href = "";
     link1.classList.add("btn");
-    link1.textContent = "Main page";
+    link1.textContent = "Main";
     link1.addEventListener("click", (event)=>{
         event.preventDefault();
-        (0, _mainJs.router).navigate("/main");
+        (0, _main.router).navigate("/main");
     });
     let link2 = document.createElement("a");
     link2.href = "";
@@ -643,7 +641,7 @@ function getHeader() {
     link2.textContent = "Cart";
     link2.addEventListener("click", (event)=>{
         event.preventDefault();
-        (0, _mainJs.router).navigate("/cart");
+        (0, _main.router).navigate("/cart");
     });
     let link3 = document.createElement("a");
     link3.href = "";
@@ -651,7 +649,7 @@ function getHeader() {
     link3.textContent = "Catalog";
     link3.addEventListener("click", (event)=>{
         event.preventDefault();
-        (0, _mainJs.router).navigate("/catalog");
+        (0, _main.router).navigate("/catalog");
     });
     nav.append(link1, link2, link3);
     container.append(nav);
@@ -659,7 +657,7 @@ function getHeader() {
     return header;
 }
 
-},{"../main.js":"bDbGG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../main":"bDbGG"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -1361,10 +1359,10 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getProductPage", ()=>getProductPage);
 var _mainTitleJs = require("../components/mainTitle.js");
 var _descJs = require("../components/desc.js");
-function getProductPage() {
+function getProductPage(title) {
     const page = document.createElement("div");
     page.classList.add("page", "product-page", "container");
-    const mainTitle = (0, _mainTitleJs.getMainTitle)("Product");
+    const mainTitle = (0, _mainTitleJs.getMainTitle)(title);
     const mainDesc = (0, _descJs.getDescription)("Description of product");
     page.append(mainTitle, mainDesc);
     return page;

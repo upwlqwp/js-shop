@@ -1,3 +1,5 @@
+import { router } from "../main"
+
 export function getProductCard(title, price) {
 
     const item = document.createElement('li')
@@ -9,7 +11,12 @@ export function getProductCard(title, price) {
 
     let productLink = document.createElement('a')
     productLink.textContent = title
-    productLink.href = '/product'
+    productLink.href = ''
+
+    productLink.addEventListener('click', (event) => {
+        event.preventDefault()
+        router.navigate(`/product/${title}`)
+    })
 
     productTitle.append(productLink)
 
