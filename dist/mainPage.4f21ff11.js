@@ -124,12 +124,20 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.getProductCard = getProductCard;
+var _main = require("../main");
 function getProductCard(title, price) {
   var item = document.createElement('li');
   item.classList.add('product-list__item');
   var productTitle = document.createElement('h2');
   productTitle.classList.add('product-list__title');
-  productTitle.textContent = title;
+  var productLink = document.createElement('a');
+  productLink.textContent = title;
+  productLink.href = '/product';
+  productLink.addEventListener('click', function (event) {
+    event.preventDefault();
+    _main.router.navigate("/product/".concat(title));
+  });
+  productTitle.append(productLink);
   var productPrice = document.createElement('strong');
   productPrice.classList.add('product-list__price');
   productPrice.textContent = "".concat(price, " eur");
@@ -139,7 +147,7 @@ function getProductCard(title, price) {
   item.append(productTitle, productPrice, addCart);
   return item;
 }
-},{}],"js/pages/mainPage.js":[function(require,module,exports) {
+},{"../main":"js/main.js"}],"js/pages/mainPage.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -158,7 +166,7 @@ function getMainPage() {
   page.append(mainTitle, list);
   return page;
 }
-},{"../components/productCard.js":"js/components/productCard.js","../components/mainTitle.js":"js/components/mainTitle.js"}],"../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"../components/productCard.js":"js/components/productCard.js","../components/mainTitle.js":"js/components/mainTitle.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -183,7 +191,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63639" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65062" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
@@ -327,5 +335,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
+},{}]},{},["../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
 //# sourceMappingURL=/mainPage.4f21ff11.js.map
