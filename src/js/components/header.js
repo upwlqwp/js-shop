@@ -1,5 +1,8 @@
 // import { router } from "../main";
+
+import { getLogo } from "./logo";
 import { getNavigation } from "./navigation";
+import { getCartBtn } from "./cartBtn";
 
 export function getHeader() {
   const header = document.createElement("header");
@@ -8,17 +11,39 @@ export function getHeader() {
   const container = document.createElement("div");
   container.classList.add("container", "header__container");
 
+  const logo = getLogo();
+  const cartBtn = getCartBtn();
+
   const nav = document.createElement("nav");
   nav.classList.add("header__navigation");
 
-  let link1 = getNavigation("/main", "Main");
+  const links = {
+    'home': getNavigation("/main", "Main"),
+    'catalog': getNavigation("/catalog", "Catalog"),
+    'cart': cartBtn,
+  }
 
-  let link2 = getNavigation("/cart", "Cart");
+  // make logo inner link
 
-  let link3 = getNavigation("/catalog", "Catalog");
+  for (const activeLink in links) {
+    nav.append(links[activeLink]);
+  }
 
-  nav.append(link1, link2, link3);
-  container.append(nav);
+  const setActiveLink = function (link = "") {
+    for (const activeLink in links) {
+      links[activeLink].classList.remove("active");
+    }
+
+    if (link !== "") {
+      links[link].classList.add("active");
+    }
+  };
+
+  container.append(logo, nav, cartBtn);
   header.append(container);
-  return header;
+
+  return {
+    header,
+    setActiveLink,
+  };
 }

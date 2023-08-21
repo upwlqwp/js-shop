@@ -1,7 +1,11 @@
 .header {
-    padding: 30px 0;
-    background-color: #0057ff;
-  
+    background-color: #1f1e1e;
+
+    &__container{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
   
   &__navigation {
     display: flex;
@@ -9,4 +13,9 @@
     align-items: center;
     gap: 40px;
   }
+}
+
+.logo{
+  width: 300px;
+  height: 500px;
 }

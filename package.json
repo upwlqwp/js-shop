@@ -12,5 +12,8 @@
     "js": "^0.1.0",
     "navigo": "^8.11.1",
     "parcel": "^2.9.3"
+  },
+  "devDependencies": {
+    "@parcel/transformer-inline-string": "^2.9.3"
   }
 }

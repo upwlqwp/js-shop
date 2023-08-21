@@ -106,14 +106,14 @@ body {
 .page-container {
   padding: 100px 0;
   min-height: 600px;
-  background-color: #f0f8ff;
+  background-color: #fefefe;
 }
 
 .main-title {
   text-align: center;
   padding: 50px 0;
   margin: 0;
-  color: #0057ff;
+  color: #006400;
 }
 
 .desc {
@@ -123,14 +123,23 @@ body {
 }
 
 .header {
-  padding: 30px 0;
-  background-color: #0057ff;
+  background-color: #1f1e1e;
+}
+.header__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .header__navigation {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 40px;
+}
+
+.logo {
+  width: 300px;
+  height: 500px;
 }
 
 .product-list {
@@ -147,20 +156,25 @@ body {
   max-width: 250px;
   border-radius: 12px;
   padding: 50px 20px;
-  background-color: #0057ff;
+  background-color: #1f1e1e;
+  position: relative;
 }
 .product-list__price {
   width: fit-content;
   padding: 12px;
   border-radius: 50px;
-  color: #262626;
-  background-color: #f0f8ff;
+  font-size: 18px;
+  color: #f7f7f7;
 }
 .product-list__title {
   font-weight: 700;
   font-size: 28px;
-  color: #000;
-  border-bottom: 2px solid #000;
+  color: #e2b208;
+  margin-bottom: 15px;
+}
+.product-list__wrapper {
+  display: flex;
+  justify-content: space-between;
 }
 .product-list__btn {
   cursor: pointer;
@@ -168,18 +182,25 @@ body {
   outline: none;
   padding: 10px;
   border-radius: 50px;
-  border: none;
-  color: #000;
+  font-size: 18px;
+  font-weight: 500;
+  border: 1px solid transparent;
+  color: #006400;
   background-color: #f0f8ff;
+  transition: background-color 0.4s, border-color 0.4s ease-in;
+}
+.product-list__btn:hover {
+  background-color: #1f1e1e;
+  border-color: #006400;
 }
 
 .btn {
   font-size: 21px;
+  display: block;
   font-weight: 500;
   padding: 12px;
   border-radius: 100px;
   border: 2px solid transparent;
-  background-color: rgb(43, 42, 43);
   /* transition: opacity 0.4s color 0.4s  border-color 0.4s  background-color 0.4s  ease-in-out; */
   transition: all 0.6s ease-in-out;
 }
@@ -204,4 +225,23 @@ body {
   border-radius: 50px;
   padding: 10px 15px;
   background-color: #ed9f41;
+}
+
+.cart-btn {
+  height: 36px;
+  width: 36px;
+  display: block;
+  padding: 3px;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn.active {
+  background-color: #e2b208;
+}
+
+.cart-btn.active {
+  background-color: #e2b208;
 }

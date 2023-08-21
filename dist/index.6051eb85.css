@@ -78,14 +78,14 @@ body {
 }
 
 .page-container {
-  background-color: #f0f8ff;
+  background-color: #fefefe;
   min-height: 600px;
   padding: 100px 0;
 }
 
 .main-title {
   text-align: center;
-  color: #0057ff;
+  color: #006400;
   margin: 0;
   padding: 50px 0;
 }
@@ -97,8 +97,13 @@ body {
 }
 
 .header {
-  background-color: #0057ff;
-  padding: 30px 0;
+  background-color: #1f1e1e;
+}
+
+.header__container {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
 }
 
 .header__navigation {
@@ -106,6 +111,11 @@ body {
   align-items: center;
   gap: 40px;
   display: flex;
+}
+
+.logo {
+  width: 300px;
+  height: 500px;
 }
 
 .product-list {
@@ -116,7 +126,7 @@ body {
 }
 
 .product-list__item {
-  background-color: #0057ff;
+  background-color: #1f1e1e;
   border-radius: 12px;
   flex-direction: column;
   justify-content: space-between;
@@ -124,43 +134,57 @@ body {
   max-width: 250px;
   padding: 50px 20px;
   display: flex;
+  position: relative;
 }
 
 .product-list__price {
-  color: #262626;
-  background-color: #f0f8ff;
+  color: #f7f7f7;
   border-radius: 50px;
   width: -moz-fit-content;
   width: fit-content;
   padding: 12px;
+  font-size: 18px;
 }
 
 .product-list__title {
-  color: #000;
-  border-bottom: 2px solid #000;
+  color: #e2b208;
+  margin-bottom: 15px;
   font-size: 28px;
   font-weight: 700;
 }
 
+.product-list__wrapper {
+  justify-content: space-between;
+  display: flex;
+}
+
 .product-list__btn {
   cursor: pointer;
-  color: #000;
+  color: #006400;
   background-color: #f0f8ff;
-  border: none;
+  border: 1px solid #0000;
   border-radius: 50px;
   outline: none;
   margin: 12px 0;
   padding: 10px;
+  font-size: 18px;
+  font-weight: 500;
+  transition: background-color .4s, border-color .4s ease-in;
+}
+
+.product-list__btn:hover {
+  background-color: #1f1e1e;
+  border-color: #006400;
 }
 
 .btn {
-  background-color: #2b2a2b;
   border: 2px solid #0000;
   border-radius: 100px;
   padding: 12px;
   font-size: 21px;
   font-weight: 500;
   transition: all .6s ease-in-out;
+  display: block;
 }
 
 .btn:active {
@@ -183,6 +207,20 @@ body {
   border-radius: 50px;
   padding: 10px 15px;
   display: inline-block;
+}
+
+.cart-btn {
+  border-radius: 3px;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 3px;
+  display: flex;
+}
+
+.btn.active, .cart-btn.active {
+  background-color: #e2b208;
 }
 
 /*# sourceMappingURL=index.6051eb85.css.map */

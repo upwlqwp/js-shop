@@ -593,18 +593,21 @@ router.on("/main", async ()=>{
     const { getMainPage } = await require("a69127bc709cf0be");
     const mainPage = getMainPage();
     pageContainer.append(mainPage);
+    header.setActiveLink("home");
 });
 router.on("/catalog", async ()=>{
     pageContainer.innerHTML = "";
     const { getCatalogPage } = await require("6d02dfb6265a718");
     const catalogPage = getCatalogPage();
     pageContainer.append(catalogPage);
+    header.setActiveLink("catalog");
 });
 router.on("/cart", async ()=>{
     pageContainer.innerHTML = "";
     const { getCartPage } = await require("d7f1d4bcfe479a23");
     const cartPage = getCartPage();
     pageContainer.append(cartPage);
+    header.setActiveLink("cart");
 });
 router.on("/order", async ()=>{
     router.navigate("/");
@@ -627,7 +630,7 @@ router.notFound(async ()=>{
     pageContainer.append(notFound);
 });
 router.resolve();
-app.append(header, pageContainer);
+app.append(header.header, pageContainer);
 
 },{"navigo":"fuSlc","./components/header.js":"iODzc","./components/pageContainer.js":"6pXtL","a69127bc709cf0be":"iejFx","6d02dfb6265a718":"fbGyp","d7f1d4bcfe479a23":"j8Sad","efbd2e0a4e037ce9":"i82Yn","919c2d9fb088c799":"6aDHF","47617f69e01b479":"6Z9YI","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fuSlc":[function(require,module,exports) {
 !function(t, n) {
@@ -1153,24 +1156,91 @@ app.append(header, pageContainer);
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getHeader", ()=>getHeader);
+var _logo = require("./logo");
 var _navigation = require("./navigation");
+var _cartBtn = require("./cartBtn");
 function getHeader() {
     const header = document.createElement("header");
     header.classList.add("header");
     const container = document.createElement("div");
     container.classList.add("container", "header__container");
+    const logo = (0, _logo.getLogo)();
+    const cartBtn = (0, _cartBtn.getCartBtn)();
     const nav = document.createElement("nav");
     nav.classList.add("header__navigation");
-    let link1 = (0, _navigation.getNavigation)("/main", "Main");
-    let link2 = (0, _navigation.getNavigation)("/cart", "Cart");
-    let link3 = (0, _navigation.getNavigation)("/catalog", "Catalog");
-    nav.append(link1, link2, link3);
-    container.append(nav);
+    const links = {
+        "home": (0, _navigation.getNavigation)("/main", "Main"),
+        "catalog": (0, _navigation.getNavigation)("/catalog", "Catalog"),
+        "cart": cartBtn
+    };
+    // make logo inner link
+    for(const activeLink in links)nav.append(links[activeLink]);
+    const setActiveLink = function(link = "") {
+        for(const activeLink in links)links[activeLink].classList.remove("active");
+        if (link !== "") links[link].classList.add("active");
+    };
+    container.append(logo, nav, cartBtn);
     header.append(container);
-    return header;
+    return {
+        header,
+        setActiveLink
+    };
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./navigation":"9ITz5"}],"gkKU3":[function(require,module,exports) {
+},{"./logo":"a01kz","./navigation":"9ITz5","./cartBtn":"bvASa","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"a01kz":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "getLogo", ()=>getLogo);
+var _logoSvg = require("../../assets/images/logo.svg");
+var _logoSvgDefault = parcelHelpers.interopDefault(_logoSvg);
+function getLogo() {
+    const logo = document.createElement("img");
+    logo.classList.add("logo");
+    logo.style.width = "180px";
+    logo.style.height = "80px";
+    logo.src = (0, _logoSvgDefault.default);
+    return logo;
+}
+
+},{"../../assets/images/logo.svg":"hykWI","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hykWI":[function(require,module,exports) {
+module.exports = require("53887d1fc5b5016b").getBundleURL("10Mjw") + "logo.5b34b4d1.svg" + "?" + Date.now();
+
+},{"53887d1fc5b5016b":"lgJ39"}],"lgJ39":[function(require,module,exports) {
+"use strict";
+var bundleURL = {};
+function getBundleURLCached(id) {
+    var value = bundleURL[id];
+    if (!value) {
+        value = getBundleURL();
+        bundleURL[id] = value;
+    }
+    return value;
+}
+function getBundleURL() {
+    try {
+        throw new Error();
+    } catch (err) {
+        var matches = ("" + err.stack).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^)\n]+/g);
+        if (matches) // The first two stack frames will be this function and getBundleURLCached.
+        // Use the 3rd one, which will be a runtime in the original bundle.
+        return getBaseURL(matches[2]);
+    }
+    return "/";
+}
+function getBaseURL(url) {
+    return ("" + url).replace(/^((?:https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/.+)\/[^/]+$/, "$1") + "/";
+}
+// TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
+function getOrigin(url) {
+    var matches = ("" + url).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^/]+/);
+    if (!matches) throw new Error("Origin not found");
+    return matches[0];
+}
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+exports.getOrigin = getOrigin;
+
+},{}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -1217,7 +1287,30 @@ function getNavigation(path, title) {
     return link;
 }
 
-},{"../main":"1SICI","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6pXtL":[function(require,module,exports) {
+},{"../main":"1SICI","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bvASa":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "getCartBtn", ()=>getCartBtn);
+var _main = require("../main");
+var _cartSvg = require("bundle-text:../../assets/images/cart.svg");
+var _cartSvgDefault = parcelHelpers.interopDefault(_cartSvg);
+function getCartBtn() {
+    const cartBtn = document.createElement("a");
+    cartBtn.href = "/cart";
+    cartBtn.classList.add("cart-btn");
+    cartBtn.textContent = "cart";
+    cartBtn.innerHTML = (0, _cartSvgDefault.default);
+    cartBtn.addEventListener("click", (event)=>{
+        event.preventDefault();
+        (0, _main.router).navigate("/cart");
+    });
+    return cartBtn;
+}
+
+},{"../main":"1SICI","bundle-text:../../assets/images/cart.svg":"6h3dI","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6h3dI":[function(require,module,exports) {
+module.exports = "<svg width=\"30\" height=\"30\" viewBox=\"0 0 30 30\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n<g clip-path=\"url('#clip0_0_1')\">\n<path d=\"M10.7694 22.3069H25.2508C25.7347 22.3069 26.1566 21.8363 26.1566 21.204C26.1566 20.5717 25.7347 20.1011 25.2508 20.1011H10.9803C10.273 20.1011 9.83874 19.5129 9.72702 18.6159L9.52848 17.0719H25.2755C27.0872 17.0719 28.0179 15.7484 28.2786 13.6457L29.2713 5.8667C29.2962 5.67559 29.3208 5.44025 29.3208 5.30793C29.3208 4.60209 28.8741 4.11685 28.1917 4.11685H7.92773L7.69197 2.24929C7.56786 1.117 7.22043 0.543488 5.95467 0.543488H1.59913C1.10277 0.543488 0.680847 1.05822 0.680847 1.64641C0.680847 2.24929 1.10277 2.76396 1.59913 2.76396H5.79335L7.7788 18.91C8.03939 20.9981 8.97006 22.3069 10.7694 22.3069ZM27.2112 6.33726L26.3304 13.381C26.2311 14.2926 25.8216 14.8514 25.0895 14.8514L9.25549 14.8662L8.20072 6.33726H27.2112ZM11.7497 29.4535C12.8665 29.4535 13.76 28.4094 13.76 27.0713C13.76 25.7478 12.8665 24.6891 11.7497 24.6891C10.6205 24.6891 9.72702 25.7478 9.72702 27.0713C9.72702 28.4094 10.6205 29.4535 11.7497 29.4535ZM23.3522 29.4535C24.4813 29.4535 25.3749 28.4094 25.3749 27.0713C25.3749 25.7478 24.4813 24.6891 23.3522 24.6891C22.2353 24.6891 21.3295 25.7478 21.3295 27.0713C21.3295 28.4094 22.2353 29.4535 23.3522 29.4535Z\" fill=\"white\"></path>\n</g>\n<defs>\n<clipPath id=\"clip0_0_1\">\n<rect width=\"30\" height=\"30\" fill=\"white\"></rect>\n</clipPath>\n</defs>\n</svg>\n";
+
+},{}],"6pXtL":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getPageContainer", ()=>getPageContainer);
@@ -1294,41 +1387,6 @@ module.exports = function(loader, type) {
         });
     };
 };
-
-},{}],"lgJ39":[function(require,module,exports) {
-"use strict";
-var bundleURL = {};
-function getBundleURLCached(id) {
-    var value = bundleURL[id];
-    if (!value) {
-        value = getBundleURL();
-        bundleURL[id] = value;
-    }
-    return value;
-}
-function getBundleURL() {
-    try {
-        throw new Error();
-    } catch (err) {
-        var matches = ("" + err.stack).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^)\n]+/g);
-        if (matches) // The first two stack frames will be this function and getBundleURLCached.
-        // Use the 3rd one, which will be a runtime in the original bundle.
-        return getBaseURL(matches[2]);
-    }
-    return "/";
-}
-function getBaseURL(url) {
-    return ("" + url).replace(/^((?:https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/.+)\/[^/]+$/, "$1") + "/";
-}
-// TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
-function getOrigin(url) {
-    var matches = ("" + url).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^/]+/);
-    if (!matches) throw new Error("Origin not found");
-    return matches[0];
-}
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-exports.getOrigin = getOrigin;
 
 },{}],"fbGyp":[function(require,module,exports) {
 module.exports = require("d6d14ba99d838e8c")(require("30d70832740a1131").getBundleURL("10Mjw") + "catalogPage.28119ab2.js" + "?" + Date.now()).catch((err)=>{

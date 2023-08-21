@@ -1,35 +1,51 @@
 import { router } from "../main"
+import { getCartBtn } from "./cartBtn";
 
-export function getProductCard(title, price) {
+
+
+
+export function getProductCard(title, price, image) {
+
 
     const item = document.createElement('li')
     item.classList.add('product-list__item')
 
-    const productTitle = document.createElement('h2')
-    productTitle.classList.add('product-list__title')
 
 
-    let productLink = document.createElement('a')
-    productLink.textContent = title
-    productLink.href = '/product'
+    const productSubTitle = document.createElement('h3')
+    productSubTitle.classList.add('product-list__title')
+    productSubTitle.textContent = title
+
     
 
-    productLink.addEventListener('click', (event) => {
+
+    // productTitle.append(productLink)
+
+    const productImage = document.createElement('img')
+    productImage.classList.add('product-list__img')
+    productImage.src = `${image}`
+
+    const productWrapper = document.createElement('div')
+    productWrapper.classList.add('product-list__wrapper')
+
+    const seeMore = document.createElement('a')
+    seeMore.href = '/product'
+    seeMore.classList.add('product-list__btn')
+    seeMore.textContent = 'See more'
+
+    seeMore.addEventListener('click', (event) => {
         event.preventDefault()
         router.navigate(`/product/${title}`)
     })
 
-    productTitle.append(productLink)
-
     const productPrice = document.createElement('strong')
     productPrice.classList.add('product-list__price')
-    productPrice.textContent = `${price} eur`
+    productPrice.textContent = `${price} EUR`
 
-    const addCart = document.createElement('button')
-    addCart.classList.add('product-list__btn')
-    addCart.textContent = 'Add to cart'
+    const addCart = getCartBtn();
 
-    item.append(productTitle, productPrice, addCart)
+    productWrapper.append(  productPrice, addCart)
+    item.append( productSubTitle, productImage,  seeMore, productWrapper)
     return item
 
 }

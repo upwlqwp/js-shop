@@ -579,46 +579,59 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getMainPage", ()=>getMainPage);
 var _productCardJs = require("../components/productCard.js");
 var _mainTitleJs = require("../components/mainTitle.js");
+var _01Jpg = require("../../assets/images/01.jpg");
+var _01JpgDefault = parcelHelpers.interopDefault(_01Jpg);
+var _02Jpg = require("../../assets/images/02.jpg");
+var _02JpgDefault = parcelHelpers.interopDefault(_02Jpg);
+var _03Jpg = require("../../assets/images/03.jpg");
+var _03JpgDefault = parcelHelpers.interopDefault(_03Jpg);
 function getMainPage() {
     const page = document.createElement("div");
     page.classList.add("page", "main-page", "container");
     const mainTitle = (0, _mainTitleJs.getMainTitle)("The main page");
     const list = document.createElement("ul");
     list.classList.add("product-list", "list-reset");
-    list.append((0, _productCardJs.getProductCard)("First card", 100), (0, _productCardJs.getProductCard)("Second card", 200), (0, _productCardJs.getProductCard)("Third card", 300));
+    list.append((0, _productCardJs.getProductCard)("Flowering Trees", 100, (0, _01JpgDefault.default)), (0, _productCardJs.getProductCard)("Perennials", 200, (0, _02JpgDefault.default)), (0, _productCardJs.getProductCard)("Roses", 300, (0, _03JpgDefault.default)));
     page.append(mainTitle, list);
     return page;
 }
 
-},{"../components/productCard.js":"6onfN","../components/mainTitle.js":"1BNwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6onfN":[function(require,module,exports) {
+},{"../components/productCard.js":"6onfN","../components/mainTitle.js":"1BNwr","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../../assets/images/01.jpg":"gEU11","../../assets/images/02.jpg":"4ssw8","../../assets/images/03.jpg":"5CoOD"}],"6onfN":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getProductCard", ()=>getProductCard);
 var _main = require("../main");
-function getProductCard(title, price) {
+var _cartBtn = require("./cartBtn");
+function getProductCard(title, price, image) {
     const item = document.createElement("li");
     item.classList.add("product-list__item");
-    const productTitle = document.createElement("h2");
-    productTitle.classList.add("product-list__title");
-    let productLink = document.createElement("a");
-    productLink.textContent = title;
-    productLink.href = "/product";
-    productLink.addEventListener("click", (event)=>{
+    const productSubTitle = document.createElement("h3");
+    productSubTitle.classList.add("product-list__title");
+    productSubTitle.textContent = title;
+    // productTitle.append(productLink)
+    const productImage = document.createElement("img");
+    productImage.classList.add("product-list__img");
+    productImage.src = `${image}`;
+    const productWrapper = document.createElement("div");
+    productWrapper.classList.add("product-list__wrapper");
+    const seeMore = document.createElement("a");
+    seeMore.href = "/product";
+    seeMore.classList.add("product-list__btn");
+    seeMore.textContent = "See more";
+    seeMore.addEventListener("click", (event)=>{
         event.preventDefault();
         (0, _main.router).navigate(`/product/${title}`);
     });
-    productTitle.append(productLink);
     const productPrice = document.createElement("strong");
     productPrice.classList.add("product-list__price");
-    productPrice.textContent = `${price} eur`;
-    const addCart = document.createElement("button");
-    addCart.classList.add("product-list__btn");
-    addCart.textContent = "Add to cart";
-    item.append(productTitle, productPrice, addCart);
+    productPrice.textContent = `${price} EUR`;
+    const addCart = (0, _cartBtn.getCartBtn)();
+    productWrapper.append(productPrice, addCart);
+    item.append(productSubTitle, productImage, seeMore, productWrapper);
     return item;
 }
 
-},{"../main":"1SICI","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1BNwr":[function(require,module,exports) {
+},{"../main":"1SICI","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./cartBtn":"bvASa"}],"1BNwr":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getMainTitle", ()=>getMainTitle);
@@ -629,6 +642,15 @@ function getMainTitle(text) {
     return title;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["8HyrQ"], null, "parcelRequire8cd9")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gEU11":[function(require,module,exports) {
+module.exports = require("c3eaf1cb805b6536").getBundleURL("hi2nL") + "01.035fc8e6.jpg" + "?" + Date.now();
+
+},{"c3eaf1cb805b6536":"lgJ39"}],"4ssw8":[function(require,module,exports) {
+module.exports = require("fa92d442d150e9db").getBundleURL("hi2nL") + "02.e43a011b.jpg" + "?" + Date.now();
+
+},{"fa92d442d150e9db":"lgJ39"}],"5CoOD":[function(require,module,exports) {
+module.exports = require("3180e23d195734b9").getBundleURL("hi2nL") + "03.1463c3ea.jpg" + "?" + Date.now();
+
+},{"3180e23d195734b9":"lgJ39"}]},["8HyrQ"], null, "parcelRequire8cd9")
 
 //# sourceMappingURL=mainPage.7b1963fc.js.map
